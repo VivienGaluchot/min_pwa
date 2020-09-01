@@ -3,7 +3,7 @@
  * Allows to cache the app file and access it offline
  */
 
-const CACHE_VERSION = '0.0.4';
+const CACHE_VERSION = '0.0.5';
 
 self.addEventListener('activate', function (event) {
     event.waitUntil(
@@ -36,18 +36,32 @@ self.addEventListener('install', function (event) {
                 '/img/icon-black.svg',
                 '/img/matthew-hamilton-BeeMMFF_jso-unsplash.jpg',
                 '/img/icon-white.svg',
-                // cdn
+                // bootstrap
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css',
                 'https://code.jquery.com/jquery-3.5.1.slim.min.js',
                 'https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js',
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js',
+                // fontawesome
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-brands-400.eot',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-brands-400.eot?#iefix',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-brands-400.woff2',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-brands-400.woff',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-brands-400.ttf',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-regular-400.eot',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-regular-400.eot?#iefix',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-regular-400.woff2',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-regular-400.woff',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-regular-400.ttf',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-solid-400.eot',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-solid-400.eot?#iefix',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-solid-400.woff2',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-solid-400.woff',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-solid-400.ttf',
             ]);
         })
     );
 });
-
-
 
 
 // Cache strategy
