@@ -1,0 +1,23 @@
+{
+    "short_name": "min_pwa",
+    "name": "Minimal Progressive Web App",
+    "description": "Progressive Web App techno trial",
+    "theme_color": "#333233",
+    "background_color": "#ffffffff",
+    "display": "standalone",
+    "Scope": "/",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/img/icon-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/img/icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/"
+}

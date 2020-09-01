@@ -26,6 +26,7 @@ self.addEventListener('install', function (event) {
                 '/app.js',
                 '/style.css',
                 '/sw-init.js',
+                '/manifest.webmanifest',
                 // ./img/
                 '/img/heather-ford-Fq54FqucgCE-unsplash.jpg',
                 '/img/izuddin-helmi-adnan-8VJDHw3daGk-unsplash.jpg',
