@@ -3,7 +3,7 @@
  * Allows to cache the app file and access it offline
  */
 
-const CACHE_VERSION = '0.0.5';
+const CACHE_VERSION = '0.0.6';
 
 self.addEventListener('activate', function (event) {
     event.waitUntil(
@@ -36,28 +36,30 @@ self.addEventListener('install', function (event) {
                 '/img/icon-black.svg',
                 '/img/matthew-hamilton-BeeMMFF_jso-unsplash.jpg',
                 '/img/icon-white.svg',
+                '/img/icon-192.png',
+                '/img/icon-512.png',
+                // fontawesome
+                '/lib/fontawesome-free-5.14.0-web/css/all.min.css',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-brands-400.eot',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-brands-400.svg',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-brands-400.ttf',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-brands-400.woff',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-brands-400.woff2',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-regular-400.eot',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-regular-400.svg',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-regular-400.ttf',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-regular-400.woff',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-regular-400.woff2',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-solid-900.eot',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-solid-900.svg',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-solid-900.ttf',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-solid-900.woff',
+                '/lib/fontawesome-free-5.14.0-web/webfonts/fa-solid-900.woff2',
                 // bootstrap
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
                 'https://code.jquery.com/jquery-3.5.1.slim.min.js',
                 'https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js',
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js',
-                // fontawesome
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-brands-400.eot',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-brands-400.eot?#iefix',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-brands-400.woff2',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-brands-400.woff',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-brands-400.ttf',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-regular-400.eot',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-regular-400.eot?#iefix',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-regular-400.woff2',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-regular-400.woff',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-regular-400.ttf',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-solid-400.eot',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-solid-400.eot?#iefix',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-solid-400.woff2',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-solid-400.woff',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/webfonts/fa-solid-400.ttf',
             ]);
         })
     );
