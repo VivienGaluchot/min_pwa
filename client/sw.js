@@ -29,6 +29,7 @@ self.addEventListener('install', function (event) {
                 // ./img/
                 '/img/heather-ford-Fq54FqucgCE-unsplash.jpg',
                 '/img/izuddin-helmi-adnan-8VJDHw3daGk-unsplash.jpg',
+                '/img/norris-niman-ePB2oGU8mb4-unsplash.jpg',
                 '/img/icon-badge.svg',
                 '/img/logo-black.svg',
                 '/img/icon-black.svg',

@@ -32,7 +32,7 @@ body>footer {
 }
 
 .home-carousel img {
-    max-height: 40rem;
+    height: 40rem;
     width: 100%;
     display: block;
     object-fit: cover;
