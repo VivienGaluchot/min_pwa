@@ -1,0 +1,27 @@
+{
+  "name": "min_pwa",
+  "version": "0.0.1",
+  "private": true,
+  "description": "minimal progressive web application - techno trial",
+  "author": "vgaluchot",
+  "license": "ISC",
+  "dependencies": {
+    "websocket": "^1.0.31"
+  },
+  "engines": {
+    "node": ">14.8.0"
+  },
+  "main": "server/app.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/app.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VivienGaluchot/min_pwa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VivienGaluchot/min_pwa/issues"
+  },
+  "homepage": "https://github.com/VivienGaluchot/min_pwa#readme"
+}

@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+body>header {
+    flex-grow: 0;
+}
+
+body>content {
+    flex-grow: 1;
+    position: relative;
+}
+
+body>footer {
+    background-color: #DDDDDD;
+    flex-grow: 0;
+}
+
+.test-box {
+    max-height: 30rem;
+    overflow: auto;
+}
+
+.home-carousel img {
+    max-height: 25rem;
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.home-carousel a {
+    color: white;
+}
