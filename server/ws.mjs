@@ -16,7 +16,7 @@ function originIsAllowed(origin) {
         return true;
     if (origin == "http://localhost:8080")
         return true;
-    if (origin == "https://min_pwa.herokuapp.com")
+    if (origin == "https://min-pwa.herokuapp.com")
         return true;
     return false;
 }
