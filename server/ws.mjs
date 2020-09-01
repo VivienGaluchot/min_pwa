@@ -10,40 +10,13 @@ const { server } = websocket;
 const WebSocketServer = server;
 
 
-class PeerSet {
-    constructor() {
-        // store peers connection by id
-        // id -> connection
-        this.peerMap = new Map();
-    }
-
-    getConnection(id) {
-        return this.peerMap.get(id);
-    }
-
-    register(id, connection) {
-        if (this.peerMap.has(id)) {
-            logError(`peer id collision`);
-        } else {
-            this.peerMap.set(id, connection);
-            logDebug(`peer registered '${id}', count '${this.peerMap.size}'`);
-            connection.id = id;
-        }
-    }
-
-    unregister(id) {
-        this.peerMap.delete(id);
-        logDebug(`peer unregistered '${id}', count '${this.peerMap.size}'`);
-    }
-}
-
 function originIsAllowed(origin) {
     logInfo("connection origin " + origin);
     if (origin == "http://127.0.0.1:8080")
         return true;
     if (origin == "http://localhost:8080")
         return true;
-    if (origin == "https://dwapp.herokuapp.com")
+    if (origin == "https://min_pwa.herokuapp.com")
         return true;
     return false;
 }
@@ -56,8 +29,6 @@ export function initWsServer(httpServer) {
         path: "/ws",
     });
 
-    let set = new PeerSet();
-
     wsServer.on('request', function (request) {
         if (!originIsAllowed(request.origin)) {
             // Make sure we only accept requests from an allowed origin
@@ -67,49 +38,16 @@ export function initWsServer(httpServer) {
         }
 
         try {
-            let connection = request.accept('tileak-signaling', request.origin);
-            connection.id = null;
+            let connection = request.accept('online-check', request.origin);
+            logInfo(`WS connection accepted`);
+
             connection.on('message', message => {
-                if (message.type === 'binary') {
-                    logError(`received binary message of ${message.binaryData.length} bytes`);
-                    return
-                }
-                if (message.type !== 'utf8') {
-                    logError(`received non utf8 message of type ${message.type}`);
-                }
-
-                let data = JSON.parse(message.utf8Data);
-                if (data.id != undefined) {
-                    if (connection.id != null) {
-                        logError(`connection with id '${connection.id}' already registered`);
-                        return;
-                    }
-                    set.register(data.id, connection);
-
-                } else if (data.to != undefined && data.data != undefined) {
-                    let src = connection;
-                    let dst = set.getConnection(data.to);
-                    let payload = data.data;
-                    if (!dst) {
-                        logError(`cant forward to '${data.to}', dst not known`);
-                        return;
-                    }
-                    if (src.id == null) {
-                        logError(`prevent forward to '${data.to}', src not identified`);
-                        return;
-                    }
-                    logDebug(`forward from '${src.id}'to '${dst.id}' '${JSON.stringify(payload)}'`);
-
-                    dst.sendUTF(JSON.stringify({ from: src.id, data: payload }));
-                } else {
-                    logError(`unexpected data received ${JSON.stringify(data)}`);
-                }
+                logError(`received unexpected message from client APP`);
             });
             connection.on('close', (reasonCode, description) => {
-                if (connection.id) {
-                    set.unregister(connection.id);
-                }
+                logInfo(`WS connection closed`);
             });
+
         } catch (error) {
             logError(error);
         }

@@ -22,6 +22,14 @@
       <a class="navbar-brand" href="/">
         <img src="/img/icon-white.svg" style="width: 3rem;">
       </a>
+      <div class="m-auto text-light">
+        <i class="fas fa-clock"></i> <span id="badge-datetime"></span>
+      </div>
+      <div>
+        <span id="badge-online" class="badge badge-success"><i class="fas fa-check"></i> online</span>
+        <span id="badge-offline" class="badge badge-warning js-hidden"><i class="fas fa-exclamation-triangle"></i>
+          offline</span>
+      </div>
     </nav>
   </header>
 
@@ -29,7 +37,9 @@
     <div class="container-xl">
       <div class="my-5">
         <h1>Hi !</h1>
-        <p class="lead">This app is a PWA techno trial</p>
+        <p class="lead">This app is a <a href="https://fr.wikipedia.org/wiki/Progressive_web_app">PWA</a> techno trial
+        </p>
+        <p>It's designed to fully work offline.</p>
       </div>
 
       <div class="my-5">
@@ -181,7 +191,7 @@
           </div>
         </div>
         <div class="col-auto">
-          <div class="my-3"><img src="/img/logo-black.svg" style="height: 1rem; opacity: .25;"></div>
+          <div class="my-3"><img src="/img/logo-black.svg" style="height: 1rem; opacity: .5;"></div>
         </div>
       </div>
     </div>

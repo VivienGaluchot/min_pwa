@@ -67,6 +67,12 @@ export function initHttpServer() {
     }
 
     const httpServer = http.createServer(function (request, response) {
+        if (request.headers['x-forwarded-proto'] == 'http') {
+            response.writeHead(301, { "Location": "https://" + request.headers['host'] + request.url });
+            response.end();
+            return;
+        }
+
         var pathname = url.parse(request.url).pathname;
         let view = urlMap.get(pathname);
         if (view) {

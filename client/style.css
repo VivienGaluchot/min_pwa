@@ -41,3 +41,7 @@ body>footer {
 .home-carousel a {
     color: white;
 }
+
+.js-hidden {
+    display: none;
+}
