@@ -3,13 +3,14 @@
  * Allows to cache the app file and access it offline
  */
 
-const CACHE_VERSION = '0.0.6';
+const CACHE_VERSION = '0.0.1';
 
 self.addEventListener('activate', function (event) {
     event.waitUntil(
         caches.keys().then(function (keyList) {
             return Promise.all(keyList.map(function (name) {
                 if (name != CACHE_VERSION) {
+                    console.log('clean past cache', name);
                     return caches.delete(name);
                 }
             }));
@@ -69,16 +70,42 @@ self.addEventListener('install', function (event) {
 // Cache strategy
 // - cached then network fallback
 this.addEventListener('fetch', function (event) {
-    var response;
-    event.respondWith(
-        caches.match(event.request).catch(function () {
-            return fetch(event.request);
-        }).then(function (r) {
-            response = r;
-            caches.open(CACHE_VERSION).then(function (cache) {
-                cache.put(event.request, response);
-            });
-            return response.clone();
-        })
-    );
+    if (event.request.method === 'GET') {
+        event.respondWith(
+            caches.open(CACHE_VERSION).then(cache => {
+                return cache.match(event.request).then(cached_response => {
+                    if (cached_response !== undefined) {
+                        return cached_response
+                    } else {
+                        return fetch(event.request).then(network_response => {
+                            cache.put(event.request, network_response.clone());
+                            return network_response;
+                        });
+                    }
+                })
+            })
+        );
+    }
+});
+
+
+// Message from other workers
+
+let backPort = null;
+
+let messageMapHandler = new Map();
+messageMapHandler.set('init_port', event => {
+    backPort = event.ports[0];
+});
+messageMapHandler.set('get_version', () => {
+    backPort.postMessage({ type: 'get_version', data: CACHE_VERSION });
+});
+
+self.addEventListener('message', event => {
+    if (event.data && event.data.type) {
+        let handler = messageMapHandler.get(event.data.type);
+        if (handler) {
+            handler(event);
+        }
+    }
 });
