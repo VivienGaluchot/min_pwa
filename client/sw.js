@@ -3,7 +3,7 @@
  * Allows to cache the app file and access it offline
  */
 
-const CACHE_VERSION = '0.0.3';
+const CACHE_VERSION = '0.0.4';
 
 self.addEventListener('activate', function (event) {
     event.waitUntil(
@@ -26,7 +26,6 @@ self.addEventListener('install', function (event) {
                 '/',
                 '/app.js',
                 '/style.css',
-                '/sw-init.js',
                 '/manifest.webmanifest',
                 // ./img/
                 '/img/heather-ford-Fq54FqucgCE-unsplash.jpg',
