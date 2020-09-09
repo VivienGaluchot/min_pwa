@@ -1,6 +1,69 @@
 'use strict';
 
+const SW = function () {
+
+    // private 
+
+    function initCom() {
+        let backChannel = new MessageChannel();
+        let messageMapHandler = new Map();
+        messageMapHandler.set('get_version', (event, data) => {
+            console.log(`service worker version ${data}`);
+            let el = document.getElementById('sw-version');
+            el.innerText = data;
+        });
+        backChannel.port1.onmessage = (event) => {
+            if (event.data && event.data.type) {
+                let handler = messageMapHandler.get(event.data.type);
+                if (handler) {
+                    handler(event, event.data.data);
+                }
+            }
+        };
+
+        let post = (message, transfer) => {
+            navigator.serviceWorker.controller.postMessage(message, transfer);
+        };
+        post({ type: 'init_port' }, [backChannel.port2]);
+        post({ type: 'get_version' });
+    }
+
+    // public 
+
+    function init() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(function (reg) {
+                if (reg.installing) {
+                    console.log('service worker installing');
+                } else if (reg.waiting) {
+                    console.log('service worker installed');
+                } else if (reg.active) {
+                    console.log('service worker active');
+                }
+            }).catch(function (error) {
+                console.warn('service worker registration failed', error);
+            });
+
+            if (navigator.serviceWorker.controller) {
+                initCom();
+            } else {
+                console.log('page not currently controlled by a service worker');
+            }
+        } else {
+            console.warn('service worker not available');
+        }
+    }
+
+    return {
+        init: () => init(),
+    }
+}();
+
+
 const App = function () {
+
+    // private 
+
     function setupDateTimeUpdater() {
         let dateTimeEl = document.getElementById('badge-datetime');
 
@@ -132,64 +195,13 @@ const App = function () {
         inputOpEl.onchange = recompute;
     }
 
-    // Service Worker
-
-    function initServiceWorkerCom() {
-        let backChannel = new MessageChannel();
-        let messageMapHandler = new Map();
-        messageMapHandler.set('get_version', (event, data) => {
-            console.log(`service worker version ${data}`);
-            let el = document.getElementById('sw-version');
-            el.innerText = data;
-        });
-        backChannel.port1.onmessage = (event) => {
-            if (event.data && event.data.type) {
-                let handler = messageMapHandler.get(event.data.type);
-                if (handler) {
-                    handler(event, event.data.data);
-                }
-            }
-        };
-
-        let post = (message, transfer) => {
-            navigator.serviceWorker.controller.postMessage(message, transfer);
-        };
-        post({ type: 'init_port' }, [backChannel.port2]);
-        post({ type: 'get_version' });
-    }
-
-    function setupServiceWorker() {
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(function (reg) {
-                if (reg.installing) {
-                    console.log('service worker installing');
-                } else if (reg.waiting) {
-                    console.log('service worker installed');
-                } else if (reg.active) {
-                    console.log('service worker active');
-                }
-            }).catch(function (error) {
-                console.warn('service worker registration failed', error);
-            });
-
-            if (navigator.serviceWorker.controller) {
-                initServiceWorkerCom();
-            } else {
-                console.log('page not currently controlled by a service worker');
-            }
-        } else {
-            console.warn('service worker not available');
-        }
-    }
-
     // Public
 
     function init() {
-        setupServiceWorker();
         setupDateTimeUpdater();
         setupOnlineStatusChecker();
         setupComputer();
+        SW.init();
     }
 
     return {
