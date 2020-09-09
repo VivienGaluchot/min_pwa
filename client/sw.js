@@ -80,6 +80,8 @@ this.addEventListener('fetch', function (event) {
                         return fetch(event.request).then(network_response => {
                             cache.put(event.request, network_response.clone());
                             return network_response;
+                        }).catch(reason => {
+                            log.error('fetch failed', event.request, reason);
                         });
                     }
                 })
