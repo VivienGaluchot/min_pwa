@@ -12,20 +12,37 @@ const SW = function () {
             let el = document.getElementById('sw-version');
             el.innerText = data;
         });
+        messageMapHandler.set('has_update', (event, data) => {
+            let btn = document.getElementById('btn-update');
+            btn.classList.remove('js-hidden');
+            btn.onclick = () => {
+                document.location.reload();
+            };
+        });
         backChannel.port1.onmessage = (event) => {
             if (event.data && event.data.type) {
                 let handler = messageMapHandler.get(event.data.type);
                 if (handler) {
                     handler(event, event.data.data);
+                } else {
+                    console.warn(`lost message`, event);
                 }
+            } else {
+                console.warn(`lost message`, event);
             }
         };
+        backChannel.port1.start();
 
         let post = (message, transfer) => {
             navigator.serviceWorker.controller.postMessage(message, transfer);
         };
         post({ type: 'init_port' }, [backChannel.port2]);
         post({ type: 'get_version' });
+
+        const channel = new BroadcastChannel('sw-messages');
+        channel.addEventListener('message', event => {
+            console.log('Received', event.data);
+        });
     }
 
     // public 

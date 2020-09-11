@@ -26,9 +26,11 @@
         <i class="fas fa-clock"></i> <span id="badge-datetime"></span>
       </div>
       <div>
-        <span id="badge-online" class="badge badge-success"><i class="fas fa-check"></i> online</span>
-        <span id="badge-offline" class="badge badge-warning js-hidden"><i class="fas fa-exclamation-triangle"></i>
-          offline</span>
+        <span id="badge-online" class="text-success"><i class="fas fa-check"></i> server online</span>
+        <span id="badge-offline" class="text-warning js-hidden"><i class="fas fa-exclamation-triangle"></i>
+          server offline</span>
+        <span><button id="btn-update" class="mx-2 btn btn-sm btn-outline-secondary js-hidden"><i
+              class="fas fa-sync-alt"></i> reload to update</button></span>
       </div>
     </nav>
   </header>
@@ -189,11 +191,11 @@
         <div class="col">
           <div class="my-3"><a class="btn btn-outline-secondary btn-sm" target="_blank"
               href="https://github.com/VivienGaluchot/min_pwa"><i class="fab fa-github-alt"></i> Open source project</a>
+            <span class="mx-1 text-muted">service worker v<i id="sw-version">inactive</i></span>
           </div>
         </div>
         <div class="col-auto">
           <div class="my-3">
-            <small class="mh-1 text-muted">sw version <span id="sw-version"></span></small>
             <img src="/img/logo-black.svg" style="height: 1rem; opacity: .5;">
           </div>
         </div>
