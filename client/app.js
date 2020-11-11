@@ -183,7 +183,7 @@ const App = function () {
             }
             read('form-tick', (value) => { inputTick.checked = value });
             read('form-choice', (value) => { inputChoice.selectedIndex = value });
-            read('form-note', (value) => { inputNote.input = value });
+            read('form-note', (value) => { inputNote.value = value });
             read('form-click', (value) => { setInputClick(Number(value)) });
         }
         reload();
