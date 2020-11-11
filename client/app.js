@@ -183,11 +183,9 @@ const App = function () {
             }
             read('form-tick', (value) => { inputTick.checked = value });
             read('form-choice', (value) => { inputChoice.selectedIndex = value });
-            read('form-note', (value) => { inputNote.value = value });
+            read('form-note', (value) => { inputNote.input = value });
             read('form-click', (value) => { setInputClick(Number(value)) });
         }
-
-        //localStorage.onChanged.addListener(() => { reload() });
         reload();
 
         // storage set
@@ -207,7 +205,7 @@ const App = function () {
         inputChoice.onchange = () => {
             localStorage.setItem('form-choice', inputChoice.selectedIndex);
         };
-        inputNote.onchange = () => {
+        inputNote.oninput = () => {
             localStorage.setItem('form-note', inputNote.value);
         };
     }
