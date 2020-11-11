@@ -153,6 +153,65 @@ const App = function () {
         connectToWebsocketServer();
     }
 
+    function setupDummyForm() {
+        let inputTick = document.getElementById("dummy-tick");
+        let inputChoice = document.getElementById("dummy-choice");
+        let inputNote = document.getElementById("dummy-note");
+
+        let inputClick = document.getElementById("dummy-click");
+        let outputCount = document.getElementById("dummy-click-count");
+        let inputReset = document.getElementById("dummy-reset");
+
+        let clickCount = null;
+        function setInputClick(count) {
+            clickCount = count;
+            outputCount.innerText = `${count}`;
+        }
+        function getInputClick() {
+            return clickCount;
+        }
+        setInputClick(0);
+
+        // storage get
+
+        function reload() {
+            function read(key, apply) {
+                var value = localStorage.getItem(key);
+                if (value !== null) {
+                    apply(value);
+                }
+            }
+            read('form-tick', (value) => { inputTick.checked = value });
+            read('form-choice', (value) => { inputChoice.selectedIndex = value });
+            read('form-note', (value) => { inputNote.value = value });
+            read('form-click', (value) => { setInputClick(Number(value)) });
+        }
+
+        //localStorage.onChanged.addListener(() => { reload() });
+        reload();
+
+        // storage set
+
+        inputClick.onclick = () => {
+            setInputClick(getInputClick() + 1);
+            localStorage.setItem('form-click', getInputClick());
+        };
+        inputReset.onclick = () => {
+            setInputClick(0);
+            localStorage.setItem('form-click', getInputClick());
+        };
+
+        inputTick.onchange = () => {
+            localStorage.setItem('form-tick', inputTick.checked);
+        };
+        inputChoice.onchange = () => {
+            localStorage.setItem('form-choice', inputChoice.selectedIndex);
+        };
+        inputNote.onchange = () => {
+            localStorage.setItem('form-note', inputNote.value);
+        };
+    }
+
     function setupComputer() {
         let inputAEl = document.getElementById('input-a');
         let inputBEl = document.getElementById('input-b');
@@ -215,10 +274,11 @@ const App = function () {
     // Public
 
     function init() {
+        SW.init();
         setupDateTimeUpdater();
         setupOnlineStatusChecker();
+        setupDummyForm();
         setupComputer();
-        SW.init();
     }
 
     return {

@@ -51,7 +51,7 @@ self.addEventListener('activate', function (event) {
         caches.keys().then(function (keyList) {
             return Promise.all(keyList.map(function (name) {
                 if (name != CACHE_VERSION) {
-                    console.log('clean past cache', name);
+                    console.debug('clean past cache', name);
                     return caches.delete(name);
                 }
             }));
@@ -132,7 +132,7 @@ this.addEventListener('fetch', function (event) {
                     return cached_response.clone();
                 } else {
                     // get resource offline
-                    console.warn("missing resource, added to cache", request);
+                    console.warn("missing resource, added to cache", request.url);
                     return fetch(request).then(network_response => {
                         cache.put(request, network_response.clone());
                         return network_response;
